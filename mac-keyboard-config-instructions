@@ -1,0 +1,57 @@
+Original Answer URL: https://stackoverflow.com/questions/35874608/intellij-default-windows-keymap-on-mac-os-x
+
+
+Answer used, just in case it is delete
+That was a pain for me aswell. Iam working at sometimes at IntelliJ in windows, linux and macOS and just don't want to handle the different layouts mentally.
+
+Ive finally succeeded at having the same layout and I also swapped the control/command buttons on the keyboard (i am using a regular windows keyboard) in all applications except IntelliJ so I can use ctrl + c/v/a/f/... through the whole system.
+
+    changed the keymap in IntelliJ to "Default for XWin"
+    installed karabiner-elements which allows any keyboard/mouse changes: https://github.com/tekezo/Karabiner-Elements
+
+    edited my /Users/username/.config/karabiner/karabiner.json and added my own rule in that json under profiles > complex_modifications > rules:
+
+    {
+      "description": "ctrl/command swap",
+      "manipulators": [
+        {
+          "conditions": [
+            {
+              "bundle_identifiers": [
+                "^com\\.jetbrains\\.intellij$"
+              ],
+              "type": "frontmost_application_unless"
+            }
+          ],
+          "from": {
+            "key_code": "left_control"
+          },
+          "to": [
+            {
+              "key_code": "left_command"
+            }
+          ],
+          "type": "basic"
+        },
+        {
+          "conditions": [
+            {
+              "bundle_identifiers": [
+                "^com\\.jetbrains\\.intellij$"
+              ],
+              "type": "frontmost_application_unless"
+            }
+          ],
+          "from": {
+            "key_code": "left_command"
+          },
+          "to": [
+            {
+              "key_code": "left_control"
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    }
+
